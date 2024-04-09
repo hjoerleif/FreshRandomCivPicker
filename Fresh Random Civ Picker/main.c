@@ -16,8 +16,10 @@ char *civ_name(int index);
 int result(int);
 void resetter(int *);
 
+
 int main()
 {
+	srand(time(NULL));
 	printf("Welcome to the Fresh Random Civ Picker for AoE2DE!\nThis free program was made by Hjoerleif. Donate: https://ko-fi.com/hjoerleif\n\n");
 
 	int input = 0;
@@ -42,27 +44,11 @@ int main()
 			if (!parsed_correct || input != -1 && input != 0 && input != 1) printf("\nInvalid input. Please try again.\n");
 		} while (!parsed_correct || input != -1 && input != 0 && input != 1);
 
-		if (input == -1) return 0;
-		given_index = result(remaining);
-		int j = 0;
-		int i = 0;
-		while (i < 45) {
-			while (available[j] != 1) j++;
-			if (i == given_index) {
-					given_index = j;
-					break;
-			}
-			j++;
-			i++;
 
-		}
-		if (input == 1)
-		{
-			printf("\n%s (current set: %d/%d)\n", civ_name(given_index), iterator + 1, 45);
-			available[given_index] = 0;
-			iterator++;
-			remaining--;
-		}
+
+		if (input == -1) return 0;
+		
+
 		if (iterator == 45 || input == 0)
 		{
 			printf("\nProgram has been reset.\n");
@@ -70,6 +56,28 @@ int main()
 			resetter(&available);
 			remaining = 45;
 		}
+
+		if (input == 1)
+		{
+			given_index = result(remaining);
+			int j = 0;
+			int i = 0;
+			while (i < 45) {
+				while (available[j] != 1) j++;
+				if (i == given_index) {
+					given_index = j;
+					break;
+				}
+				j++;
+				i++;
+
+			}
+			printf("\n%s (current set: %d/%d)\n", civ_name(given_index), iterator + 1, 45);
+			available[given_index] = 0;
+			iterator++;
+			remaining--;
+		}
+
 	} while (input != -1);
 	return 0;
 }
@@ -107,7 +115,6 @@ bool parse_int(char *string, int *integer)
 int result(int max)
 {
 	int result = -1;
-	srand(time(NULL));
 	result = rand() % max;
 	return result;
 }
