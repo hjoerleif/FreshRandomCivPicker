@@ -61,15 +61,13 @@ int main()
 		{
 			given_index = result(remaining);
 			int j = 0;
-			int i = 0;
-			while (i < 45) {
+			for (int i = 0;  i < 45; i++) {
 				while (available[j] != 1) j++;
 				if (i == given_index) {
 					given_index = j;
 					break;
 				}
 				j++;
-				i++;
 
 			}
 			printf("\n%s (current set: %d/%d)\n", civ_name(given_index), iterator + 1, 45);
